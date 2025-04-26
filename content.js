@@ -1,6 +1,5 @@
 (function () {
-  const landscapeMaxItem = 6;
-  const portraitMaxItem = 3;
+  const pseudoIconSize = 450;
   const removeYoutubeshort = true;
 
   function setGridItemsPerRow() {
@@ -9,7 +8,7 @@
     if (gridRenderer) {
       gridRenderer.style.setProperty(
         "--ytd-rich-grid-items-per-row",
-        (window.innerHeight > window.innerWidth) ? portraitMaxItem : landscapeMaxItem
+        window.innerWidth / pseudoIconSize
       );
     }
   }
