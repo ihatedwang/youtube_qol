@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Youtube QOL",
+  "version": "1.0",
+  "description": "Youtube UI sucks",
+  "permissions": ["activeTab", "scripting"],
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
