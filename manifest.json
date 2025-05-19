@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Youtube QOL",
-  "version": "1.0",
-  "description": "Youtube UI sucks",
+  "version": "1.2",
+  "description": "I don't know how to program but the new Youtube UI sucks. Currently, the code will resize youtube thumbnails so you can display more videos per page as well as remove the Shorts and Playables shelves.",
   "permissions": ["activeTab", "scripting"],
   "content_scripts": [
     {
