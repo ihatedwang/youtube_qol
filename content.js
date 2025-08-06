@@ -1,66 +1,56 @@
-(function () {
-  const PSEUDO_ICON_SIZE = 450;
-  const REMOVE_SHORTS = true;
-  const REMOVE_PLAYABLES = true;
-  const SHELF_NAME = "ytd-rich-section-renderer";
+// Content script - bridges between popup and injected script
+let injectedScript = null;
 
-  function setGridItemsPerRow() {
-    const gridRenderer = document.querySelector("ytd-rich-grid-renderer");
+// Default settings
+const DEFAULT_SETTINGS = {
+  iconSize: 600,
+  enableShorts: false,
+  enablePlayables: false,
+};
 
-    if (gridRenderer) {
-      gridRenderer.style.setProperty(
-        "--ytd-rich-grid-items-per-row",
-        window.innerWidth / PSEUDO_ICON_SIZE
-      );
-    }
+/**
+ * injected.js is loaded into a custom element <script>
+ * Attempts to add element to <head> or <html> tag.
+ * <script> is then removed afterwards to clean up the DOM
+ */
+function injectScript() {
+  if (injectedScript) return;
+
+  injectedScript = document.createElement("script");
+  injectedScript.src = chrome.runtime.getURL("injected.js");
+  injectedScript.onload = function () {
+    this.remove();
+  };
+  (document.head || document.documentElement).appendChild(injectedScript);
+}
+
+/**
+ * Send settings to injected script
+ * @param {*} settings contains (number) iconSize, (boolean) enableShorts, and (boolean) enablePlayables
+ */
+function sendSettingsToPage(settings) {
+  window.postMessage(
+    {
+      type: "YOUTUBE_LAYOUT_SETTINGS",
+      settings: settings,
+    },
+    "*"
+  );
+}
+
+chrome.storage.sync.get(DEFAULT_SETTINGS, (settings) => {
+  injectScript();
+
+  setTimeout(() => {
+    sendSettingsToPage(settings);
+  }, 100);
+});
+
+// Listen for updateSettings message from popup.js
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "updateSettings") {
+    sendSettingsToPage(message.settings);
   }
+});
 
-  function removeShortsShelf() {
-    const shortsShelves = document.querySelectorAll(SHELF_NAME);
-
-    shortsShelves.forEach((shelf) => {
-      const titleElement = shelf.querySelector("span#title");
-      if (
-        titleElement &&
-        titleElement.textContent.trim().toLowerCase().includes("shorts")
-      ) {
-        shelf.remove();
-      }
-    });
-  }
-
-  function removePlayablesShelf() {
-    const playablesShelves = document.querySelectorAll(SHELF_NAME);
-    
-    playablesShelves.forEach((shelf) => {
-      const titleElement = shelf.querySelector("span#title");
-      if (
-        titleElement &&
-        titleElement.textContent.trim().toLowerCase().includes("youtube playables")
-      ) {
-        shelf.remove();
-      }
-    });
-  }
-
-  function applyChanges() {
-    setGridItemsPerRow();
-    if (REMOVE_SHORTS) {
-      removeShortsShelf();
-    }
-    if (REMOVE_PLAYABLES) {
-      removePlayablesShelf();
-    }
-  }
-
-  applyChanges();
-
-  const observer = new MutationObserver(() => {
-    applyChanges();
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
-  // Update if window size changes
-  window.addEventListener("resize", applyChanges);
-})();
+observer.observe(document, { subtree: true, childList: true });

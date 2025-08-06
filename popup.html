@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 280px;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 14px;
+      background: #f8f9fa;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+      font-weight: 600;
+    }
+    
+    .setting-group {
+      margin-bottom: 16px;
+      padding: 12px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    .setting-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #555;
+    }
+    
+    .input-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    input[type="number"] {
+      flex: 1;
+      padding: 8px 12px;
+      border: 2px solid #e1e5e9;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+    
+    input[type="number"]:focus {
+      outline: none;
+      border-color: #4285f4;
+    }
+    
+    .unit {
+      color: #666;
+      font-size: 12px;
+    }
+    
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .toggle {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 24px;
+    }
+    
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.3s;
+      border-radius: 24px;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    
+    input:checked + .slider {
+      background-color: #4285f4;
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+    
+    .reset-btn {
+      width: 100%;
+      padding: 10px;
+      background: #f1f3f4;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      color: #5f6368;
+      margin-top: 16px;
+      transition: background-color 0.2s;
+    }
+    
+    .reset-btn:hover {
+      background: #e8eaed;
+    }
+    
+    .status {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 12px;
+      color: #4285f4;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .status.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">YouTube Layout Controller</div>
+  
+  <div class="setting-group">
+    <label class="setting-label" for="iconSize">Icon Size:</label>
+    <div class="input-container">
+      <input type="number" id="iconSize" min="200" max="1000" step="50" value="600">
+      <span class="unit">px</span>
+    </div>
+  </div>
+  
+  <div class="setting-group">
+    <div class="toggle-container">
+      <label class="setting-label">Enable Shorts:</label>
+      <label class="toggle">
+        <input type="checkbox" id="enableShorts">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+  
+  <div class="setting-group">
+    <div class="toggle-container">
+      <label class="setting-label">Enable Playables:</label>
+      <label class="toggle">
+        <input type="checkbox" id="enablePlayables">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+  
+  <button class="reset-btn" id="resetBtn">Reset to Defaults</button>
+  
+  <div class="status" id="status">Settings saved!</div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

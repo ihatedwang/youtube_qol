@@ -6,4 +6,4 @@ Really crappy chrome extension to fix some of their BS layout design. Code is ab
 
 Issues:
 * Will break if youtube changes element name
-* Youtube will having thumbnail loading issues if you display too many videos per page
+* Youtube has thumbnail loading issues if you display too many videos per page

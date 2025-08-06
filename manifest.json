@@ -1,14 +1,31 @@
+
 {
   "manifest_version": 3,
   "name": "Youtube QOL",
-  "version": "1.2",
-  "description": "I don't know how to program but the new Youtube UI sucks. Currently, the code will resize youtube thumbnails so you can display more videos per page as well as remove the Shorts and Playables shelves.",
-  "permissions": ["activeTab", "scripting"],
+  "version": "2.0",
+  "description": "Customize YouTube Video size, enable/ disable Shorts and Playables",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://*.youtube.com/*"
+  ],
   "content_scripts": [
     {
-      "matches": ["*://www.youtube.com/*"],
+      "matches": ["*://*.youtube.com/*"],
       "js": ["content.js"],
       "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "YouTube Layout Controller"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["injected.js"],
+      "matches": ["*://*.youtube.com/*"]
     }
   ]
 }
