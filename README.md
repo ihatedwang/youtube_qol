@@ -14,5 +14,3 @@ Issues:
 * Will break if youtube changes element name
 * YouTube has thumbnail loading issues if you display too many videos per page
 * YouTube page does not refresh/ update when toggle value changes
-
-test test
