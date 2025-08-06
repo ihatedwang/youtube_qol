@@ -1,11 +1,16 @@
 Really crappy chrome extension to fix some of their BS layout design. Code is absolute trash and inefficient but I just needed something to work...
 
-* [homescreen] Change sizing of youtube thumbnails (window size / 600)
-* [homescreen, search results] Auto hide youtube shorts
-* [homescreen, search results] Auto hide yotube playables
+Features:
+* Extension UI to adjust YouTube layout
+* Custom video thumbnail size on homepage
+* Toggle on/ off Shorts shelf on homepage and search results
+* Toggle on/ off Playables shelf on homepage and search results
+
+Does not support:
+* Custom video thumbnail size on search results
+* No customization is allowed on channel pages
 
 Issues:
 * Will break if youtube changes element name
-* Youtube has thumbnail loading issues if you display too many videos per page
-* Thumbnail sizing cannot be applied to search results due to how the default layout works
-* No settings are applied to channel page
+* YouTube has thumbnail loading issues if you display too many videos per page
+* YouTube page does not refresh/ update when toggle value changes
