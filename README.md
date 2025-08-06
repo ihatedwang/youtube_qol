@@ -10,7 +10,9 @@ Does not support:
 * Custom video thumbnail size on search results
 * No customization is allowed on channel pages
 
-Issues:
+Known issues:
 * Will break if youtube changes element name
 * YouTube has thumbnail loading issues if you display too many videos per page
 * YouTube page does not refresh/ update when toggle value changes
+
+![image of extension UI](image.png)
